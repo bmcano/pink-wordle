@@ -1,0 +1,227 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffe6f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+header h1 {
+  color: #ff66b2;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+#board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.guess-row {
+  display: flex;
+  gap: 4px;
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.box.correct {
+  background-color: #6aaa64;
+  color: white;
+  border-color: #6aaa64;
+}
+
+.box.wrong-location {
+  background-color: #c9b458;
+  color: white;
+  border-color: #c9b458;
+}
+
+.box.incorrect {
+  background-color: #787c7e;
+  color: white;
+  border-color: #787c7e;
+}
+
+/* Keyboard styles */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.key-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.key {
+  width: 32px;
+  background-color: #fff;
+  color: #ff66b2;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icon-key {
+  width: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.key.correct {
+  background-color: #6aaa64;
+  color: white;
+}
+
+.key.wrong-location {
+  background-color: #c9b458;
+  color: white;
+}
+
+.key.incorrect {
+  background-color: #787c7e;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .key {
+    font-size: 1rem;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .key {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+}
+
+/* Guess animation */
+.box {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+@keyframes pulse-green {
+  0% {
+    background-color: #6aaa64;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    background-color: #6aaa64;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-yellow {
+  0% {
+    background-color: #c9b458;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    background-color: #c9b458;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-gray {
+  0% {
+    background-color: #787c7e;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    background-color: #787c7e;
+    transform: scale(1);
+  }
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  color: #ff66b2;
+}
+
+.modal-content button {
+  background-color: #ff66b2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #ff4d99;
+}
