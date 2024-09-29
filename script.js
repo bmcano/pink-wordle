@@ -7,7 +7,7 @@ const totalRows = 6; // Total number of rows available
 const board = document.getElementById('board');
 const keys = document.querySelectorAll('.key');
 const enterKey = document.getElementById('enter');
-const backspaceKey = document.querySelector('.icon-key');
+const backspaceKey = document.getElementById('backspace');
 // Modal
 const gameResultModal = document.getElementById('gameResultModal');
 const modalTitle = document.getElementById('modal-title');
