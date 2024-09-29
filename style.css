@@ -83,7 +83,6 @@ header h1 {
 
 .key {
   width: 36px;
-  height: 36px;
   background-color: #fff;
   color: #ff66b2;
   border: none;
@@ -96,7 +95,6 @@ header h1 {
 
 .icon-key {
   width: 48px;
-  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
