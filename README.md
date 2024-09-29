@@ -7,7 +7,7 @@ Letters that are correct and in the right position turn green, while letters in 
 
 Unlike the official game, Pink Wordle offers unlimited play, drawing from a large word list to provide a new word each round. You can play as many times as you like, whenever you want.
 
-This project was inspired by a friend's desire to play a pink-themed Wordle game that wasn’t restricted to just once per day.
+This project was inspired by my friend's desire to play a pink-themed Wordle game that wasn’t restricted to just once per day.
 
 ## [Play Pink Wordle Here](https://bmcano.github.io/pink-wordle/)
 
@@ -16,6 +16,10 @@ This project was inspired by a friend's desire to play a pink-themed Wordle game
 - **Responsive Design**: Optimized for mobile and desktop gameplay.
 - **Animated Feedback**: Letter boxes and keyboard keys update dynamically, just like in the original Wordle game.
 - **Pink-Themed UI**: A fully custom pink aesthetic.
+
+### Word List
+
+The list of words that are currently in use can be found from here: https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt 
 
 ### Disclaimer
 This project is a fan-made clone of the popular game Wordle, originally developed by Josh Wardle and currently owned by The New York Times. 
