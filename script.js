@@ -15,12 +15,14 @@ const modalMessage = document.getElementById('modal-message');
 const modalResult = document.getElementById('modal-result');
 const playAgainButton = document.getElementById('playAgainButton');
 
+let validWords = [];
+
 // Replace with words_test.txt for a small list of words
 fetch('words.txt')
     .then(response => response.text())
     .then(data => {
-        const wordList = data.split('\n').map(word => word.trim());
-        targetWord = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
+        validWords = data.split('\n').map(word => word.trim().toUpperCase());
+        targetWord = validWords[Math.floor(Math.random() * validWords.length)].toUpperCase();
         console.log(targetWord); // DEBUGGING
         initializeBoard();
     });
@@ -55,6 +57,16 @@ async function checkGuess() {
     if (currentGuess.length !== 5) return;
 
     const currentRowElement = board.children[currentRow];
+
+    if (!validWords.includes(currentGuess)) {
+        showInvalidWordDialog();
+        currentRowElement.classList.add('shake');
+        setTimeout(() => {
+            currentRowElement.classList.remove('shake');
+        }, 600);
+        return;
+    }
+    
     const boxAnimations = [];
     let rowResult = '';
 
@@ -107,6 +119,15 @@ function showEndGameModal(won) {
         modalMessage.textContent = `The word was: ${targetWord}`;
     }
     modalResult.innerHTML = gameResults.join('<br>');
+}
+
+function showInvalidWordDialog() {
+    const dialog = document.getElementById('invalidWordDialog');
+    dialog.classList.add('show');
+
+    setTimeout(() => {
+        dialog.classList.remove('show');
+    }, 1000);
 }
 
 function delay(ms) {
