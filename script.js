@@ -30,13 +30,13 @@ fetch(VALID_WORLD_WORDS)
 // functions
 function getWordleAnswer() {
     fetch(WORLD_ANSWERS)
-    .then(response => response.text())
-    .then(data => {
-        validAnswers = data.split('\n').map(word => word.trim().toUpperCase());
-        targetWord = validAnswers[Math.floor(Math.random() * validAnswers.length)];
-        console.log(targetWord); // DEBUGGING
-        initializeBoard();
-    });
+        .then(response => response.text())
+        .then(data => {
+            validAnswers = data.split('\n').map(word => word.trim().toUpperCase());
+            targetWord = validAnswers[Math.floor(Math.random() * validAnswers.length)];
+            console.log(targetWord); // DEBUGGING
+            initializeBoard();
+        });
 }
 
 function initializeBoard() {
@@ -78,7 +78,7 @@ async function checkGuess() {
         }, 600);
         return;
     }
-    
+
     const boxAnimations = [];
     let rowResult = '';
     let lettersInTargetWord = targetWord.split("");
