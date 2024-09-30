@@ -1,8 +1,12 @@
 let targetWord = '';
 let currentGuess = '';
 let gameResults = [];
-let currentRow = 0; // Track the current row for guesses
-const totalRows = 6; // Total number of rows available
+let validWords = [];
+let validAnswers = [];
+let currentRow = 0;
+const TOTAL_ROWS = 6;
+const VALID_WORLD_WORDS = "valid-wordle-words.txt";
+const WORLD_ANSWERS = "words.txt";
 // game/keyboard
 const board = document.getElementById('board');
 const keys = document.querySelectorAll('.key');
@@ -15,23 +19,31 @@ const modalMessage = document.getElementById('modal-message');
 const modalResult = document.getElementById('modal-result');
 const playAgainButton = document.getElementById('playAgainButton');
 
-let validWords = [];
-
-// Replace with words_test.txt for a small list of words
-fetch('words.txt')
+// initial fetching from word lists
+fetch(VALID_WORLD_WORDS)
     .then(response => response.text())
     .then(data => {
         validWords = data.split('\n').map(word => word.trim().toUpperCase());
-        targetWord = validWords[Math.floor(Math.random() * validWords.length)].toUpperCase();
+        getWordleAnswer();
+    });
+
+// functions
+function getWordleAnswer() {
+    fetch(WORLD_ANSWERS)
+    .then(response => response.text())
+    .then(data => {
+        validAnswers = data.split('\n').map(word => word.trim().toUpperCase());
+        targetWord = validAnswers[Math.floor(Math.random() * validAnswers.length)];
         console.log(targetWord); // DEBUGGING
         initializeBoard();
     });
+}
 
 function initializeBoard() {
     currentRow = 0;
     currentGuess = '';
     gameResults = [];
-    for (let i = 0; i < totalRows; i++) {
+    for (let i = 0; i < TOTAL_ROWS; i++) {
         const row = document.createElement('div');
         row.className = 'guess-row';
         for (let j = 0; j < 5; j++) {
@@ -45,7 +57,7 @@ function initializeBoard() {
 }
 
 function updateCurrentRow() {
-    if (currentRow >= totalRows) return;
+    if (currentRow >= TOTAL_ROWS) return;
     const currentRowElement = board.children[currentRow];
     for (let i = 0; i < 5; i++) {
         const box = currentRowElement.children[i];
@@ -69,6 +81,16 @@ async function checkGuess() {
     
     const boxAnimations = [];
     let rowResult = '';
+    let lettersInTargetWord = targetWord.split("");
+
+    for (let i = 0; i < 5; i++) {
+        if (currentGuess[i] === targetWord[i]) {
+            const index = lettersInTargetWord.indexOf(currentGuess[i]);
+            if (index !== -1) {
+                lettersInTargetWord.splice(index, 1);
+            }
+        }
+    }
 
     for (let i = 0; i < 5; i++) {
         const key = [...keys].find(k => k.textContent === currentGuess[i]);
@@ -80,11 +102,15 @@ async function checkGuess() {
             box.classList.add('correct');
             boxAnimations.push('pulse-green');
             rowResult += '🟩';
-        } else if (targetWord.includes(currentGuess[i])) {
+        } else if (lettersInTargetWord.includes(currentGuess[i])) {
             key.classList.add('wrong-location');
             box.classList.add('wrong-location');
             boxAnimations.push('pulse-yellow');
             rowResult += '🟨';
+            const index = lettersInTargetWord.indexOf(currentGuess[i]);
+            if (index !== -1) {
+                lettersInTargetWord.splice(index, 1);
+            }
         } else {
             key.classList.add('incorrect');
             box.classList.add('incorrect');
@@ -100,10 +126,10 @@ async function checkGuess() {
     currentRow++;
     if (currentGuess === targetWord) {
         showEndGameModal(true)
-    } else if (currentRow === totalRows) {
+    } else if (currentRow === TOTAL_ROWS) {
         showEndGameModal(false)
     }
-    
+
     currentGuess = '';
     updateCurrentRow();
 }
@@ -137,7 +163,6 @@ function delay(ms) {
 // event listeners
 document.addEventListener('keydown', (event) => {
     const letter = event.key.toUpperCase();
-
     if (/^[A-Z]$/.test(letter)) {
         if (currentGuess.length < 5) {
             currentGuess += letter;
@@ -179,13 +204,6 @@ playAgainButton.addEventListener('click', () => {
         key.classList.remove('correct', 'wrong-location', 'incorrect');
     });
 
-    fetch('words.txt')
-        .then(response => response.text())
-        .then(data => {
-            const wordList = data.split('\n').map(word => word.trim());
-            targetWord = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
-            console.log(targetWord); // DEBUGGING
-        });
-
+    targetWord = validAnswers[Math.floor(Math.random() * validAnswers.length)].toUpperCase();
     initializeBoard();
 });

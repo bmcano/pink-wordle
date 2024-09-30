@@ -21,6 +21,10 @@ This project was inspired by my friend's desire to play a pink-themed Wordle gam
 
 The list of words that are currently in use can be found from here: https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt 
 
+The valid dictionary of words for guesses can be found here: https://gist.github.com/dracos/dd0668f281e685bad51479e5acaadb93 
+
+The current list of answers is from Wordle's old format of a static list which can be found here: https://gist.github.com/cfreshman/a7b776506c73284511034e63af1017ee
+
 ### Disclaimer
 This project is a fan-made clone of the popular game Wordle, originally developed by Josh Wardle and currently owned by The New York Times. 
 Pink Wordle is not affiliated with, endorsed by, or associated with The New York Times. This is an open-source project made for educational purposes and personal enjoyment.
